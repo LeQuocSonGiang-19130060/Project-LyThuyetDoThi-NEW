@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import control.ConvertBetWeenGraphAndMainPanel;
 import control.ConvertBetweenShapAndGUI;
 import shape.Edge;
 
@@ -38,18 +39,21 @@ public class MainPanel extends JPanel {
 	private boolean isCreatingPoint = false;
 	private boolean isDirectionOfLineToMouse = false;
 	private boolean isDirection = false;
-	private boolean isDeletePoint = false;
+	// private boolean isDeletePoint = false;
 	private boolean isCreatingEdgeByGUI = false;
 	private boolean isCreatingPointByGUI = false;
 	private boolean isDeletePointByGUI = false;
 	private boolean isDeleteEdgeByGUI = false;
 	private GUIMain guiMain;
+	private boolean isBrowseDFS = false;
+	private boolean isBrowseBFS = false;
 
 	private MouseHandling mouseEvent; // tong hop su ly cac su kien chuot
 
 	private JPopupMenu menuOfPoint, menuOfEdge, menuOfPanel;
 
 	private ConvertBetweenShapAndGUI convert;
+	private ConvertBetWeenGraphAndMainPanel convertGraph;
 
 	public MainPanel(GUIMain gui) {
 		guiMain = gui;
@@ -64,6 +68,7 @@ public class MainPanel extends JPanel {
 		addMouseWheelListener(mouseEvent);
 
 		convert = new ConvertBetweenShapAndGUI();
+		convertGraph = new ConvertBetWeenGraphAndMainPanel();
 
 		/* Them cac POPUMENU */
 		addPopuMenu();
@@ -124,7 +129,8 @@ public class MainPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				isCreatingEdge = true;
-				isDirectionOfLineToMouse = false;isDirection = false;
+				isDirectionOfLineToMouse = false;
+				isDirection = false;
 			}
 		});
 		/** create Edge Direction */
@@ -135,6 +141,22 @@ public class MainPanel extends JPanel {
 				isCreatingEdge = true;
 				isDirectionOfLineToMouse = true;
 				isDirection = true;
+			}
+		});
+		/** BrowseDFS */
+		dfs.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isBrowseDFS = true;
+			}
+		});
+		/** BrowseBFS */
+		bfs.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isBrowseBFS = true;
 			}
 		});
 
@@ -171,7 +193,22 @@ public class MainPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				isCreatingEdge = true;
-				isDirectionOfLineToMouse = false;isDirection = false;
+				isDirectionOfLineToMouse = false;
+				isDirection = false;
+			}
+		});
+		dfs2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DFS(pointSelecting);
+			}
+		});
+		bfs2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BFS(pointSelecting);
 			}
 		});
 		/** create Edge Direction */
@@ -271,6 +308,8 @@ public class MainPanel extends JPanel {
 		if (!listPoint.contains(result)) {
 			listPoint.add(result);
 			nameOfPoint++;
+			convertGraph.addPoint();
+			System.out.println(convertGraph.toString());
 		}
 	}
 
@@ -282,6 +321,10 @@ public class MainPanel extends JPanel {
 		e.setDirection(isDirection);
 		if (!listEdge.contains(e)) { // tam thoi chi cho don do thi thoi
 			listEdge.add(e);
+			int indexA = listPoint.indexOf(a);
+			int indexB = listPoint.indexOf(b);
+			convertGraph.addEdge(indexA, indexB, isDirection);
+			System.out.println(convertGraph.toString());
 		}
 	}
 
@@ -290,7 +333,8 @@ public class MainPanel extends JPanel {
 	 */
 	public void paintPointFollowMouse(Graphics g, int x, int y) {
 		g.setColor(new Color(153, 153, 255));
-		g.fillOval(x - 12, y - 12, 25, 25);g.setColor(Color.black);
+		g.fillOval(x - 12, y - 12, 25, 25);
+		g.setColor(Color.black);
 	}
 
 	/**
@@ -309,9 +353,14 @@ public class MainPanel extends JPanel {
 	 * Xoa 1 diem
 	 */
 	public void deletePoint(Point p) {
-		listPoint.remove(p);
+
 		deleteEdge(p, null);
 		pointSelecting = null;
+		int index = listPoint.indexOf(p);
+		System.err.println(index);
+		convertGraph.deletePoint(index);
+		listPoint.remove(p);
+		System.out.println(convertGraph.toString());
 	}
 
 	/**
@@ -337,11 +386,17 @@ public class MainPanel extends JPanel {
 			}
 			listEdge.removeAll(listRemove);
 		}
+
+		System.out.println(convertGraph.toString());
 	}
 
 	public void deleteEdge(Edge e) {
 		listEdge.remove(e);
 		edgeSelecting = null;
+		int indexA = listPoint.indexOf(e.getA());
+		int indexB = listPoint.indexOf(e.getB());
+		convertGraph.deleteEdge(indexA, indexB);
+		System.out.println(convertGraph.toString());
 	}
 
 	public void setWeightForEdge(int w) {
@@ -380,6 +435,16 @@ public class MainPanel extends JPanel {
 	 */
 	public void setIsDeleteEdge(boolean s) {
 		this.isDeleteEdgeByGUI = s;
+	}
+
+	public void DFS(Point firstPoint) {
+		int index = listPoint.indexOf(firstPoint);
+		convertGraph.DFS(index);
+	}
+
+	public void BFS(Point firstPoint) {
+		int index = listPoint.indexOf(firstPoint);
+		convertGraph.BFS(index);
 	}
 
 	/**
@@ -429,6 +494,19 @@ public class MainPanel extends JPanel {
 					if (edge.inSide(x, y)) {
 						deleteEdge(edge);
 						break;
+					}
+				}
+			}else if(isBrowseDFS) {
+				for(Point p: listPoint) {
+					if(p.inside(x, y)) {
+						DFS(p);
+						isBrowseDFS = false;
+					}
+				}
+			}else if(isBrowseBFS) {
+				for(Point p: listPoint) {
+					if(p.inside(x, y)) {
+						BFS(p);isBrowseBFS = false;
 					}
 				}
 			}

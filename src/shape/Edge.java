@@ -63,26 +63,9 @@ public class Edge extends Line2D.Float {
 			x1 = (int) (Ax + CM);
 			x2 = (int) (Bx - CM);
 		}
-		
+
 	}
 
-	/*
-	 * public int getAx() { return (int) x1; }
-	 * 
-	 * public void setAx(int ax) { this.x1 = ax; }
-	 * 
-	 * public int getAy() { return (int) y1; }
-	 * 
-	 * public void setAy(int ay) { this.y1 = ay; }
-	 * 
-	 * public int getBx() { return (int) x2; }
-	 * 
-	 * public void setBx(int bx) { this.y1 = bx; }
-	 * 
-	 * public int getBy() { return (int) y2; }
-	 * 
-	 * public void setBy(int by) { this.y2 = by; }
-	 */
 	public Point getA() {
 		return a;
 	}
