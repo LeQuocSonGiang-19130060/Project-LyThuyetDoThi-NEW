@@ -54,6 +54,7 @@ public class MainPanel extends JPanel {
 
 	private ConvertBetweenShapAndGUI convert;
 	private ConvertBetWeenGraphAndMainPanel convertGraph;
+	private GUIBrowse guiBrowse;
 
 	public MainPanel(GUIMain gui) {
 		guiMain = gui;
@@ -149,6 +150,8 @@ public class MainPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				isBrowseDFS = true;
+				guiBrowse = new GUIBrowse("Browse DFS");
+				guiBrowse.setVisible(true);
 			}
 		});
 		/** BrowseBFS */
@@ -401,6 +404,9 @@ public class MainPanel extends JPanel {
 
 	public void setWeightForEdge(int w) {
 		edgeSelecting.setWeight(w);
+		int a = listPoint.indexOf(edgeSelecting.getA());
+		int b = listPoint.indexOf(edgeSelecting.getB());
+		convertGraph.setWeight(a, b, w);
 		edgeSelecting = null;
 	}
 
@@ -496,17 +502,18 @@ public class MainPanel extends JPanel {
 						break;
 					}
 				}
-			}else if(isBrowseDFS) {
-				for(Point p: listPoint) {
-					if(p.inside(x, y)) {
+			} else if (isBrowseDFS) {
+				for (Point p : listPoint) {
+					if (p.inside(x, y)) {
 						DFS(p);
 						isBrowseDFS = false;
 					}
 				}
-			}else if(isBrowseBFS) {
-				for(Point p: listPoint) {
-					if(p.inside(x, y)) {
-						BFS(p);isBrowseBFS = false;
+			} else if (isBrowseBFS) {
+				for (Point p : listPoint) {
+					if (p.inside(x, y)) {
+						BFS(p);
+						isBrowseBFS = false;
 					}
 				}
 			}

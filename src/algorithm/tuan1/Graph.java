@@ -204,6 +204,13 @@ public class Graph {
 
 	public void updateEdge(int a, int b, int weight) {
 
+		// da la canh thi weight mac dinh != 0
+		if(matrix.get(a).get(b)!=0) {
+			matrix.get(a).set(b, weight);
+		}
+		if(matrix.get(b).get(a)!=0) {
+			matrix.get(b).set(a, weight);
+		}
 	}
 
 	public static void main(String[] args) throws InterruptedException {

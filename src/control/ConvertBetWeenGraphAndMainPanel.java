@@ -37,6 +37,10 @@ public class ConvertBetWeenGraphAndMainPanel {
 
 	}
 	
+	public void setWeight(int indexA, int indexB, int weight) {
+		matrix.updateEdge(indexA, indexB, weight);
+	}
+	
 	public void DFS(int index) {
 		System.err.println(browseGraph.DFS(index));   ;
 	}
