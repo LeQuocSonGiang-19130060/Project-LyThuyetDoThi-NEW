@@ -180,31 +180,10 @@ public class GUIMain extends JFrame implements ActionListener {
 			bt.setBackground(new Color(216, 228, 243));
 			bt.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		}
-//		panel_6.addMouseMotionListener(mouseEvent);
-//		panel_6.addMouseListener(mouseEvent);
-//		panel_6.addMouseWheelListener(mouseEvent);
-//		panel.addMouseMotionListener(mouseEvent);
-//		panel.addMouseListener(mouseEvent);
-//		panel.addMouseWheelListener(mouseEvent);
 	}
-//
-//	private class MouseHandling extends MouseAdapter {
-//		@Override
-//		public void mouseMoved(MouseEvent e) {
-//			x = e.getX();
-//			y = e.getY();
-//			if(mainPanel.setInside(x, y)) {
-//				mainPanel.isInside = true;
-//			}else {
-//				mainPanel.isInside = false;
-//			}
-//				
-//			
-//		}
-//	}
-	
+
 	public void resetButton() {
-		for(JButton bt :listButton) {
+		for (JButton bt : listButton) {
 			bt.setBackground(new Color(216, 228, 243));
 		}
 		mainPanel.setIsCreatePoint(false);
@@ -222,6 +201,7 @@ public class GUIMain extends JFrame implements ActionListener {
 					bt.setBackground(new Color(165, 194, 233));
 				} else {
 					bt.setBackground(new Color(216, 228, 243));
+					mainPanel.resetColor();
 				}
 
 			} else {
@@ -279,13 +259,22 @@ public class GUIMain extends JFrame implements ActionListener {
 			mainPanel.setIsCreateEdge(false, false);
 			mainPanel.setIsDeletePoint(false);
 		} else if (e.getSource().equals(btBrowserDFS)) {
-
+			if (btBrowserDFS.getBackground().equals(new Color(165, 194, 233))) {
+				mainPanel.setIsBrowseDFS(true);
+			} else {
+				mainPanel.setIsBrowseDFS(false);
+			}
+			
 			mainPanel.setIsCreatePoint(false);
 			mainPanel.setIsCreateEdge(false, false);
 			mainPanel.setIsDeletePoint(false);
 			mainPanel.setIsDeleteEdge(false);
 		} else if (e.getSource().equals(btBrowserBFS)) {
-
+			if (btBrowserBFS.getBackground().equals(new Color(165, 194, 233))) {
+				mainPanel.setIsBrowseBFS(true);
+			} else {
+				mainPanel.setIsBrowseBFS(false);
+			}
 			mainPanel.setIsCreatePoint(false);
 			mainPanel.setIsCreateEdge(false, false);
 			mainPanel.setIsDeletePoint(false);

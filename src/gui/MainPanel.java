@@ -150,8 +150,6 @@ public class MainPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				isBrowseDFS = true;
-				guiBrowse = new GUIBrowse("Browse DFS");
-				guiBrowse.setVisible(true);
 			}
 		});
 		/** BrowseBFS */
@@ -160,6 +158,7 @@ public class MainPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				isBrowseBFS = true;
+
 			}
 		});
 
@@ -205,6 +204,7 @@ public class MainPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				DFS(pointSelecting);
+
 			}
 		});
 		bfs2.addActionListener(new ActionListener() {
@@ -212,6 +212,7 @@ public class MainPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BFS(pointSelecting);
+
 			}
 		});
 		/** create Edge Direction */
@@ -446,11 +447,52 @@ public class MainPanel extends JPanel {
 	public void DFS(Point firstPoint) {
 		int index = listPoint.indexOf(firstPoint);
 		convertGraph.DFS(index);
+		paintColorGraph();
 	}
 
 	public void BFS(Point firstPoint) {
 		int index = listPoint.indexOf(firstPoint);
 		convertGraph.BFS(index);
+		paintColorGraph();
+	}
+
+	public void paintColorGraph() {
+		Color cl1 = new Color(235, 33, 33);
+		Color cl2 = new Color(232, 204, 19);
+		Color cl3 = new Color(71, 222, 76);
+		Color cl4 = new Color(35, 75, 176);
+		Color cl5 = new Color(176, 35, 155);
+		List<Color> listColor = new ArrayList<Color>();
+		listColor.add(cl1);
+		listColor.add(cl2);
+		listColor.add(cl3);
+		listColor.add(cl4);
+		listColor.add(cl5);
+
+		for (Point p : listPoint) {
+			List<Color> listColorPrection = new ArrayList<Color>(listColor);
+			for (Point l : listPoint) {
+				if (convertGraph.isSide(listPoint.indexOf(p), listPoint.indexOf(l))
+						&& !l.getColor().equals(Color.white)) {
+					listColorPrection.remove(l.getColor());
+				}
+			}
+			p.setColor(listColorPrection.get(0));
+		}
+	}
+
+	public void resetColor() {
+		for (Point p : listPoint) {
+			p.setColor(Color.white);
+		}
+	}
+
+	public void setIsBrowseDFS(boolean s) {
+		isBrowseDFS = s;
+	}
+
+	public void setIsBrowseBFS(boolean s) {
+		isBrowseBFS = s;
 	}
 
 	/**

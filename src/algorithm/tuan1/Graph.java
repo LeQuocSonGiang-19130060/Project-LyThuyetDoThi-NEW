@@ -96,6 +96,10 @@ public class Graph {
 		return matrix.get(a).get(b) != 0 && a != b;
 	}
 
+	public boolean isSideForPaintColor(int a, int b) {
+		return matrix.get(a).get(b) != 0 || matrix.get(b).get(a) != 0;
+	}
+
 	/**
 	 * @return list side of point A
 	 */
@@ -205,10 +209,10 @@ public class Graph {
 	public void updateEdge(int a, int b, int weight) {
 
 		// da la canh thi weight mac dinh != 0
-		if(matrix.get(a).get(b)!=0) {
+		if (matrix.get(a).get(b) != 0) {
 			matrix.get(a).set(b, weight);
 		}
-		if(matrix.get(b).get(a)!=0) {
+		if (matrix.get(b).get(a) != 0) {
 			matrix.get(b).set(a, weight);
 		}
 	}

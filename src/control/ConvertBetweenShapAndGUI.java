@@ -6,14 +6,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import gui.MainPanel;
 import shape.Edge;
 import shape.Point;
 
 public class ConvertBetweenShapAndGUI {
 
 	public ConvertBetweenShapAndGUI() {
-
+		
 	}
 
 	/**
@@ -26,7 +25,7 @@ public class ConvertBetweenShapAndGUI {
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.setStroke(new BasicStroke(3));
-		g2.setColor(new Color(255, 255, 255));
+		g2.setColor(p.getColor());
 		g2.fillOval((int) p.getX(), (int) p.getY(), 25, 25);
 		g2.setColor(Color.black);
 		g2.setFont(new Font("Arial", Font.BOLD, 15));
@@ -123,33 +122,23 @@ public class ConvertBetweenShapAndGUI {
 		} else {
 			CM = Math.abs(AM * (Ax - Bx) / (Ay - By));
 		}
-		int ax = 0, ay = 0, bx = 0, by = 0;
+		int ax = 0, ay = 0;
 		if (Ax < Bx && Ay < By) {
 			ax = (int) (Ax + CM);
 			ay = (int) (Ay + AM);
-			bx = (int) (Bx - CM);
-			by = (int) (By - AM);
 		} else if (Ax > Bx && Ay > By) {
 			ax = (int) (Ax - CM);
 			ay = (int) (Ay - AM);
-			bx = (int) (Bx + CM);
-			by = (int) (By + AM);
 		} else if (Ax < Bx && Ay > By) {
 			ax = (int) (Ax + CM);
 			ay = (int) (Ay - AM);
-			bx = (int) (Bx - CM);
-			by = (int) (By + AM);
 		} else if (Ax > Bx && Ay < By) {
 			ax = (int) (Ax - CM);
 			ay = (int) (Ay + AM);
-			bx = (int) (Bx + CM);
-			by = (int) (By - AM);
 		} else if (Ay == By && Ax > Bx) {
 			ax = (int) (Ax - CM);
-			bx = (int) (Bx + CM);
 		} else if (Ay == By && Ax < Bx) {
 			ax = (int) (Ax + CM);
-			bx = (int) (Bx - CM);
 		}
 
 		g.drawLine(ax, ay, x, y);
@@ -173,33 +162,23 @@ public class ConvertBetweenShapAndGUI {
 		} else {
 			CM = Math.abs(AM * (Ax - Bx) / (Ay - By));
 		}
-		int ax = 0, ay = 0, bx = 0, by = 0;
+		int ax = 0, ay = 0;
 		if (Ax < Bx && Ay < By) {
 			ax = (int) (Ax + CM);
 			ay = (int) (Ay + AM);
-			bx = (int) (Bx - CM);
-			by = (int) (By - AM);
 		} else if (Ax > Bx && Ay > By) {
 			ax = (int) (Ax - CM);
 			ay = (int) (Ay - AM);
-			bx = (int) (Bx + CM);
-			by = (int) (By + AM);
 		} else if (Ax < Bx && Ay > By) {
 			ax = (int) (Ax + CM);
 			ay = (int) (Ay - AM);
-			bx = (int) (Bx - CM);
-			by = (int) (By + AM);
 		} else if (Ax > Bx && Ay < By) {
 			ax = (int) (Ax - CM);
 			ay = (int) (Ay + AM);
-			bx = (int) (Bx + CM);
-			by = (int) (By - AM);
 		} else if (Ay == By && Ax > Bx) {
 			ax = (int) (Ax - CM);
-			bx = (int) (Bx + CM);
 		} else if (Ay == By && Ax < Bx) {
 			ax = (int) (Ax + CM);
-			bx = (int) (Bx - CM);
 		}
 
 		g.drawLine(ax, ay, x, y);

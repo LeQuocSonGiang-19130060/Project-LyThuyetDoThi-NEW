@@ -1,5 +1,6 @@
 package shape;
 
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
@@ -8,10 +9,19 @@ public class Point extends Ellipse2D.Double {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private double radius = 12.5;
+	private Color color = Color.white;
 
 	public Point(float x, float y, String n) {
 		setFrame(x, y, 25, 25);
 		this.name = n;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 	public void setX(float x) {

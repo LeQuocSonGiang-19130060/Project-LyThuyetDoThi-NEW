@@ -10,6 +10,7 @@ import algorithm.tuan1.*;
 public class BrowseGraph {
 
 	private Graph graph;
+	private String result = "";
 
 	public BrowseGraph(Graph gr) {
 		graph = gr;
@@ -19,7 +20,7 @@ public class BrowseGraph {
 	 * DFS by STACK
 	 */
 	public String DFS(int point) {
-		String result = "";
+		result = "";
 		Stack<Integer> st = new Stack<Integer>();
 		boolean[] isVisit = new boolean[graph.size()];
 //		for (boolean item : isVisit) {
@@ -32,6 +33,12 @@ public class BrowseGraph {
 				Integer p = st.pop();
 				result += p; // browse point
 				/* Browse all point side p */
+				for (int ii = 0; ii < isVisit.length; ii++) {
+					if (isVisit[ii] == false) {
+						result += "=>";
+						break;
+					}
+				}
 				ArrayList<Integer> listSide = graph.listOfSide(p);
 				for (Integer pointSide : listSide) {
 					if (!isVisit[pointSide]) {
@@ -48,7 +55,7 @@ public class BrowseGraph {
 				}
 			}
 		}
-		return result;
+		 return result;
 	}
 
 	public String toString() {
@@ -59,7 +66,7 @@ public class BrowseGraph {
 	 * BFS by QUEUE
 	 */
 	public String BFS(int point) {
-		String result = "";
+		result = "";
 		Queue<Integer> que = new LinkedList<Integer>();
 		boolean[] isVisit = new boolean[graph.size()];
 //		for (boolean item : isVisit) {
@@ -71,6 +78,12 @@ public class BrowseGraph {
 			while (!que.isEmpty()) {
 				Integer p = que.poll();
 				result += p; // browse p
+				for (int ii = 0; ii < isVisit.length; ii++) {
+					if (isVisit[ii] == false) {
+						result += "=>";
+						break;
+					}
+				}
 				ArrayList<Integer> listSideP = graph.listOfSide(p);
 				for (Integer sideP : listSideP) {
 					if (!isVisit[sideP]) {
@@ -86,10 +99,12 @@ public class BrowseGraph {
 				}
 			}
 		}
+		 return result;
+	}
+
+	public String getResult() {
 		return result;
 	}
-	
-	
 
 	/**
 	 * run app and test
