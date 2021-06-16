@@ -285,13 +285,7 @@ public class GUIMain extends JFrame implements ActionListener {
 			mainPanel.setIsCreateEdge(false, false);
 			mainPanel.setIsDeletePoint(false);
 			mainPanel.setIsDeleteEdge(false);
-		} else {
-
-			mainPanel.setIsCreatePoint(false);
-			mainPanel.setIsCreateEdge(false, false);
-			mainPanel.setIsDeletePoint(false);
-			mainPanel.setIsDeleteEdge(false);
-		}
+		} 
 
 	}
 

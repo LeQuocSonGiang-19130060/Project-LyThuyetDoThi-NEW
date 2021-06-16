@@ -47,6 +47,7 @@ public class MainPanel extends JPanel {
 	private GUIMain guiMain;
 	private boolean isBrowseDFS = false;
 	private boolean isBrowseBFS = false;
+	private boolean isFloyd = false;
 
 	private MouseHandling mouseEvent; // tong hop su ly cac su kien chuot
 
@@ -113,8 +114,8 @@ public class MainPanel extends JPanel {
 		browser.add(bfs);
 		JMenuItem dfs = new JMenuItem("By DFS");
 		browser.add(dfs);
-		JMenuItem floyed = new JMenuItem("Floyed");
-		menuOfPanel.add(floyed);
+		JMenuItem floyd = new JMenuItem("Floyd");
+		menuOfPanel.add(floyd);
 
 		/** Event for MainPanel */
 		addPoint.addActionListener(new ActionListener() {
@@ -158,7 +159,15 @@ public class MainPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				isBrowseBFS = true;
+			}
+		});
 
+		/** Floyd */
+		floyd.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isFloyd = true;
 			}
 		});
 
@@ -178,7 +187,7 @@ public class MainPanel extends JPanel {
 		browser2.add(bfs2);
 		JMenuItem dfs2 = new JMenuItem("By DFS");
 		browser2.add(dfs2);
-		JMenuItem floyed2 = new JMenuItem("Floyed");
+		JMenuItem floyed2 = new JMenuItem("Floyd");
 		menuOfPoint.add(floyed2);
 
 		/** Event for POINT */
@@ -223,6 +232,14 @@ public class MainPanel extends JPanel {
 				isCreatingEdge = true;
 				isDirectionOfLineToMouse = true;
 				isDirection = true;
+			}
+		});
+		/** Floyd */
+		floyed2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isFloyd = true;
 			}
 		});
 
@@ -495,6 +512,14 @@ public class MainPanel extends JPanel {
 		isBrowseBFS = s;
 	}
 
+	public void floyd(Point a, Point b) {
+		convertGraph.floyd(listPoint.indexOf(a), listPoint.indexOf(b));
+	}
+
+	public void setIsFloyd(boolean s) {
+		this.isFloyd = s;
+	}
+
 	/**
 	 * this class use handling event mouse
 	 * 
@@ -556,6 +581,17 @@ public class MainPanel extends JPanel {
 					if (p.inside(x, y)) {
 						BFS(p);
 						isBrowseBFS = false;
+					}
+				}
+			} else if (isFloyd) {
+				for (Point p : listPoint) {
+					if (p.inside(x, y)) {
+						if (pointSelecting == null) {
+							pointSelecting = p;
+						} else {
+							floyd(pointSelecting, p);
+							pointSelecting = null;
+						}
 					}
 				}
 			}

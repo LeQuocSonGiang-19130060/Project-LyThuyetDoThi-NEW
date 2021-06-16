@@ -218,7 +218,8 @@ public class Graph {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		/* chua dung lam nha */ Graph matrix = new Graph();
+		/* chua dung lam nha */
+		Graph matrix = new Graph();
 		matrix.addPoint();
 		matrix.addPoint();
 		matrix.addPoint();

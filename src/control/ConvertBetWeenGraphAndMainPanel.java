@@ -2,6 +2,7 @@ package control;
 
 import algorithm.tuan1.Graph;
 import algorithm.tuan2.BrowseGraph;
+import algorithm.tuan5.Floyd;
 import gui.GUIBrowse;
 
 public class ConvertBetWeenGraphAndMainPanel {
@@ -9,10 +10,11 @@ public class ConvertBetWeenGraphAndMainPanel {
 	private Graph matrix;
 	private BrowseGraph browseGraph;
 	private GUIBrowse guiBrowse;
-
+	private Floyd floyd;
 	public ConvertBetWeenGraphAndMainPanel() {
 		matrix = new Graph();
 		browseGraph = new BrowseGraph(matrix);
+		floyd = new Floyd(matrix);
 	}
 
 	public void addPoint() {
@@ -61,5 +63,11 @@ public class ConvertBetWeenGraphAndMainPanel {
 
 	public boolean isSide(int a, int b) {
 		return matrix.isSideForPaintColor(a, b);
+	}
+	
+	public void floyd(int a, int b) {
+		guiBrowse = new GUIBrowse("Floyd");
+		guiBrowse.setLabel(floyd.shortestPathExtend(a, b));
+		guiBrowse.setVisible(true);
 	}
 }
