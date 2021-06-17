@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -74,12 +75,17 @@ public class MainPanel extends JPanel {
 
 		/* Them cac POPUMENU */
 		addPopuMenu();
+	//	addMenuBar();
 		// demo();
 	}
 
 //	public boolean inside(int x, int y) {
 //		return this.getBounds().contains(x, y);
 //	}
+	
+	public ConvertBetWeenGraphAndMainPanel getConvert() {
+		return convertGraph;
+	}
 
 	/**
 	 * Dung de thu nghiem : DEMO
@@ -93,6 +99,7 @@ public class MainPanel extends JPanel {
 		listPoint.add(b);
 		listPoint.add(c);
 	}
+	
 
 	/**
 	 * Dinh nghia cac menu cho cac Point, Edge, Panel

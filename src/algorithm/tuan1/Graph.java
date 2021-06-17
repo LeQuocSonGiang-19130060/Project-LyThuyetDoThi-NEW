@@ -216,6 +216,10 @@ public class Graph {
 			matrix.get(b).set(a, weight);
 		}
 	}
+	
+	public void readFile(int x, int y, int weight) {
+		matrix.get(x).set(y, weight);
+	}
 
 	public static void main(String[] args) throws InterruptedException {
 		/* chua dung lam nha */

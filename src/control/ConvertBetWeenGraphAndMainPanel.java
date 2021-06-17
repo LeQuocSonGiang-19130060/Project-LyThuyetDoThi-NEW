@@ -7,10 +7,11 @@ import gui.GUIBrowse;
 
 public class ConvertBetWeenGraphAndMainPanel {
 
-	private Graph matrix;
+	private Graph matrix, openMatrix;
 	private BrowseGraph browseGraph;
 	private GUIBrowse guiBrowse;
 	private Floyd floyd;
+
 	public ConvertBetWeenGraphAndMainPanel() {
 		matrix = new Graph();
 		browseGraph = new BrowseGraph(matrix);
@@ -64,10 +65,32 @@ public class ConvertBetWeenGraphAndMainPanel {
 	public boolean isSide(int a, int b) {
 		return matrix.isSideForPaintColor(a, b);
 	}
-	
+
 	public void floyd(int a, int b) {
 		guiBrowse = new GUIBrowse("Floyd");
 		guiBrowse.setLabel(floyd.shortestPathExtend(a, b));
 		guiBrowse.setVisible(true);
 	}
+
+	public void readFile() {
+
+	}
+
+	public Graph getMatrixOpen() {
+		return openMatrix;
+	}
+
+	public void setMatrixOpen(Graph matrix) {
+		this.openMatrix = matrix;
+		print();
+	}
+
+	public Graph getMatrix() {
+		return matrix;
+	}
+
+	public void print() {
+		System.err.println(matrix.printMatrix());
+	}
+
 }

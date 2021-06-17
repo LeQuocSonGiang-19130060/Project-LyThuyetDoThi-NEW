@@ -6,17 +6,24 @@ import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import algorithm.tuan1.Graph;
+import control.ConvertBetWeenGraphAndMainPanel;
+import file.ReadFile;
 
 public class GUIMain extends JFrame implements ActionListener {
 
@@ -41,6 +48,7 @@ public class GUIMain extends JFrame implements ActionListener {
 	private JPanel panel_6;
 	private MainPanel mainPanel;
 	private List<JButton> listButton;
+	ConvertBetWeenGraphAndMainPanel convert;
 //	private MouseHandling mouseEvent = new MouseHandling();
 
 	private int x, y;
@@ -66,7 +74,7 @@ public class GUIMain extends JFrame implements ActionListener {
 	 */
 	public GUIMain() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 450);
+		setSize(800, 468);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
@@ -75,6 +83,7 @@ public class GUIMain extends JFrame implements ActionListener {
 //		addMouseMotionListener(mouseEvent);
 //		addMouseListener(mouseEvent);
 //		addMouseWheelListener(mouseEvent);
+		
 
 		panel = new JPanel();
 		panel.setBackground(SystemColor.controlHighlight);
@@ -180,6 +189,53 @@ public class GUIMain extends JFrame implements ActionListener {
 			bt.setBackground(new Color(216, 228, 243));
 			bt.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		}
+		addMenuBar();
+		convert =mainPanel.getConvert();
+	}
+
+	public void addMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		JMenu menuFile = new JMenu("File");
+		menuBar.add(menuFile);
+		JMenuItem open = new JMenuItem("Open");
+		JMenuItem save = new JMenuItem("Save");
+		menuFile.add(open);
+		menuFile.add(save);
+		open.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChose = new JFileChooser();
+				fileChose.setCurrentDirectory(new File("C:\\Users\\SONGIANG-PRIME\\Desktop"));
+				FileNameExtensionFilter filler = new FileNameExtensionFilter(".txt", ".txt");
+				fileChose.setFileFilter(filler);
+				fileChose.setMultiSelectionEnabled(false);
+				int respone = fileChose.showOpenDialog(null);
+				if (respone == JFileChooser.APPROVE_OPTION) {
+					// File file = new File(fileChose.getSelectedFile().getAbsolutePath());
+					String path = fileChose.getSelectedFile().getAbsolutePath();
+					convert.setMatrixOpen(ReadFile.readFile(path));
+					System.err.println(fileChose.getSelectedFile().getAbsolutePath());
+				}
+			}
+		});
+		save.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChose = new JFileChooser();
+				fileChose.setCurrentDirectory(new File("C:\\Users\\SONGIANG-PRIME\\Desktop"));
+				FileNameExtensionFilter filler = new FileNameExtensionFilter(".txt", ".txt");
+				fileChose.setFileFilter(filler);
+				int respone = fileChose.showSaveDialog(null);
+				if (respone == JFileChooser.APPROVE_OPTION) {
+					File file = new File(fileChose.getSelectedFile().getAbsolutePath());
+					ReadFile.wirteFile(fileChose.getSelectedFile().getAbsolutePath()+".txt", convert.getMatrix());
+					System.err.println(fileChose.getSelectedFile().getAbsolutePath());
+				}
+			}
+		});
 	}
 
 	public void resetButton() {
@@ -264,7 +320,7 @@ public class GUIMain extends JFrame implements ActionListener {
 			} else {
 				mainPanel.setIsBrowseDFS(false);
 			}
-			
+
 			mainPanel.setIsCreatePoint(false);
 			mainPanel.setIsCreateEdge(false, false);
 			mainPanel.setIsDeletePoint(false);
@@ -285,7 +341,7 @@ public class GUIMain extends JFrame implements ActionListener {
 			mainPanel.setIsCreateEdge(false, false);
 			mainPanel.setIsDeletePoint(false);
 			mainPanel.setIsDeleteEdge(false);
-		} 
+		}
 
 	}
 
