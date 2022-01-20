@@ -45,7 +45,7 @@ public class FindWay {
 			}
 		}
 		if (traces[b] == -1) {
-			return "không có đư�?ng đi giữa 2 đỉnh";
+			return "Không có đường đi giữa 2 điểm";
 		} else {
 			String result = "" + b;
 			int u = traces[b];
@@ -90,7 +90,7 @@ public class FindWay {
 			}
 		}
 		if (traces[b] == -1) {
-			return "không có đư�?ng đi giữa 2 đỉnh";
+			return "Không có đường đi giữa 2 điểm";
 		} else {
 			String result = "" + b;
 			int u = traces[b];
@@ -144,11 +144,11 @@ public class FindWay {
 
 		FindWay br = new FindWay(matrix);
 		System.out.println(matrix.printMatrix());
-		System.err.println("�?ư�?ng đi từ 1 => 0 là: " + br.findWayByDFS(1, 0));
-		System.err.println("�?ư�?ng đi từ 0 => 1 là: " + br.findWayByDFS(0, 1));
-		System.err.println("�?ư�?ng đi từ 1 => 0 là: " + br.findWayByBFS(1, 0));
-		System.err.println("�?ư�?ng đi từ 0 => 1 là: " + br.findWayByBFS(0, 1));
-		System.err.println("�?ồ thị là vô hướng: " + br.checkDirection());
+		System.err.println("Ä?Æ°á»?ng Ä‘i tá»« 1 => 0 lÃ : " + br.findWayByDFS(1, 0));
+		System.err.println("Ä?Æ°á»?ng Ä‘i tá»« 0 => 1 lÃ : " + br.findWayByDFS(0, 1));
+		System.err.println("Ä?Æ°á»?ng Ä‘i tá»« 1 => 0 lÃ : " + br.findWayByBFS(1, 0));
+		System.err.println("Ä?Æ°á»?ng Ä‘i tá»« 0 => 1 lÃ : " + br.findWayByBFS(0, 1));
+		System.err.println("Ä?á»“ thá»‹ lÃ  vÃ´ hÆ°á»›ng: " + br.checkDirection());
 		System.err.println(br.checkContinuity());
 	}
 
